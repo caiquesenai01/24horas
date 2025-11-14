@@ -1,0 +1,189 @@
+@import url('cores_config.css');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--senai-branco);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.titulo {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.titulo h1 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin: 0;
+}
+
+.visualizar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.criar, .acompanhar {
+    background-color: var(--surface-color);
+    border: 2px solid var(--border-color);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.3s;
+}
+
+.criar:hover, .acompanhar:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.criar h2, .acompanhar h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.form-solicitacao {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-solicitacao label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.form-solicitacao input,
+.form-solicitacao select,
+.form-solicitacao textarea {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: var(--background-color);
+}
+
+.form-solicitacao textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-solicitacao button {
+    background-color: var(--primary-color);
+    color: var(--senai-branco);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    align-self: flex-start;
+}
+
+.form-solicitacao button:hover {
+    background-color: var(--primary-dark);
+}
+
+.navegacao {
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.navegacao ul {
+    list-style: none;
+    padding: 0;
+}
+
+.navegacao li a {
+    background-color: var(--secondary-color);
+    color: var(--senai-branco);
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navegacao li a:hover {
+    background-color: var(--secondary-light);
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    header {
+        padding: 15px;
+    }
+
+    .logo {
+        max-width: 120px;
+    }
+
+    .titulo h1 {
+        font-size: 1.5em;
+    }
+
+    .visualizar {
+        flex-direction: column;
+        gap: 15px;
+        max-width: 100%;
+        margin: 15px;
+    }
+
+    .criar, .acompanhar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .form-solicitacao {
+        gap: 10px;
+    }
+
+    .form-solicitacao input,
+    .form-solicitacao select,
+    .form-solicitacao textarea {
+        font-size: 14px;
+    }
+
+    .navegacao {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    .navegacao ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navegacao li a {
+        display: block;
+        text-align: center;
+    }
+}

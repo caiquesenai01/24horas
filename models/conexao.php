@@ -5,7 +5,7 @@ $username = "root";
 $password = "";
 $dbname = "Suporte_Senai"; 
 
-$conn = new mysqli ($servername , $dbname ,$password , $dbname);
+$conn = new mysqli ($servername , $username ,$password , $dbname);
 
 if  ($conn->connect_error) {
      die("Tentativa De Conexão Falhou". $conn->connect_error);

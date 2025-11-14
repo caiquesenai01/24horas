@@ -1,17 +1,26 @@
+<?php 
+require_once "models/conexao.php";
+
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login</title>
+	<title>Login Administrador</title>
+	<link rel="stylesheet" href="styles/login_adm.css">
 </head>
 <body>
+	<header>
+		<img src="senai.png" alt="Logo SENAI" class="logo">
+	</header>
 	<div class="titulo">
 		<h1>Login Administrador</h1>
 	</div>
 	<form action="" class="form">
-		<input type="text" name="nome" id="" placeholder="Insira seu usuario">
-		<input type="text" name="senha" id="" placeholder="Insira sua senha">
+		<input type="text" name="nome" id="" placeholder="Insira seu usuário">
+		<input type="password" name="senha" id="" placeholder="Insira sua senha">
 		<button type="submit">Entrar</button>
 	</form>
 	<nav class="navegacao">
@@ -22,27 +31,3 @@
 	</nav>
 </body>
 </html>
-<style>
-	h1 {
-		color: #333;
-	}
-	.titulo {
-		text-align: center;
-		margin-bottom: 40px;
-	}
-	body {
-		font-family: Arial, sans-serif;
-		background-color: #f4f4f4;
-		margin: 0;
-		padding: 20px;
-	}
-	h1 {
-		color: #333;
-	}
-	.form {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin-bottom: 20px;
-	}
-</style>

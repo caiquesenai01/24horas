@@ -1,11 +1,18 @@
+<?php
+require_once 'models/conexao.php';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ADM Menu</title>
+	<title>Menu do Administrador</title>
+	<link rel="stylesheet" href="styles/adm.css">
 </head>
 <body>
+	<header>
+		<img src="senai.png" alt="Logo SENAI" class="logo">
+	</header>
 	<div class="titulo">
 		<h1>Menu do Administrador</h1>
 	</div>
@@ -13,19 +20,19 @@
 		<h2>Gerenciar solicitações</h2>
 		<div class="filtro">
 			<form action="" method="GET">
-				<label for="Area">Area</label>
+				<label for="Area">Área</label>
 				<select name="Area" id="Area">
 					<option value="TI">TI</option>
-					<option value=""></option>
-					<option value=""></option>
+					<option value="Manutenção">Manutenção</option>
+					<option value="Suporte">Suporte</option>
 				</select>
-				<label for="Local">local</label>
+				<label for="Local">Local</label>
 				<select name="Local" id="Local">
-					<option value="">Laboratorio1</option>
-					<option value="">Laboratorio2</option>
-					<option value="">Laboratorio3</option>
+					<option value="Laboratorio1">Laboratório 1</option>
+					<option value="Laboratorio2">Laboratório 2</option>
+					<option value="Laboratorio3">Laboratório 3</option>
 				</select>
-				<label for="Periodo">Periodo</label>
+				<label for="Periodo">Período</label>
 				<select name="Periodo" id="Periodo">
 					<option value="Manha">Manhã</option>
 					<option value="Tarde">Tarde</option>
@@ -35,7 +42,7 @@
 				<select name="Status" id="Status">
 					<option value="Pendente">Pendente</option>
 					<option value="Em Andamento">Em Andamento</option>
-					<option value="Concluido">Concluido</option>
+					<option value="Concluido">Concluído</option>
 				</select>
 				<div>
 					<button type="submit">Filtrar</button>
@@ -43,8 +50,8 @@
 			</form>
 		</div>
 		<div>
-			<?php 
-			//vai listar as solicitações aqui, pos filtro ou nao
+			<?php
+			//vai listar as solicitações aqui, pós filtro ou não
 			?>
 		</div>
 	</div>
@@ -56,18 +63,3 @@
 	</nav>
 </body>
 </html>
-<style>
-	.titulo {
-		text-align: center;
-		margin-bottom: 40px;
-	}
-	body {
-		font-family: Arial, sans-serif;
-		background-color: #f4f4f4;
-		margin: 0;
-		padding: 20px;
-	}
-	h1 {
-		color: #333;
-	}
-</style>
