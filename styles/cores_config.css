@@ -1,0 +1,38 @@
+
+/* config.css - Configurações de cores e temas */
+:root {
+    /* Cores Base - Azul */
+    --azul-forte: #0066cc;
+    --azul-escuro: #004999;
+    --azul-claro: #4d94ff;
+    --azul-muito-claro: #e6f2ff;
+    --azul-brilhante: #00a8ff;
+    
+    /* Modo Claro */
+    --primary-color: var(--azul-forte);
+    --primary-dark: var(--azul-escuro);
+    --primary-light: var(--azul-claro);
+    --secondary-color: var(--azul-brilhante);
+    --background-color: #f0f8ff;
+    --surface-color: #ffffff;
+    --text-color: #333333;
+    --text-light: #666666;
+    --border-color: #dddddd;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Modo Noturno */
+.dark-mode {
+    --primary-color: #0080ff;
+    --primary-dark: #0066cc;
+    --primary-light: #66b3ff;
+    --secondary-color: #00ccff;
+    --background-color: #1a1a2e;
+    --surface-color: #16213e;
+    --text-color: #e6e6e6;
+    --text-light: #b3b3b3;
+    --border-color: #2a3a5a;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
