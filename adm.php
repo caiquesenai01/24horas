@@ -1,5 +1,14 @@
 <?php
 require_once 'models/conexao.php';
+
+
+
+ //Se não estiver logado, redireciona para login
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login_adm.php");
+	echo "<script>alert('Você precisa estar logado para acessar esta página.');</script>";
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

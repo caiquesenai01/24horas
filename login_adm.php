@@ -1,7 +1,6 @@
 <?php 
 require_once "models/conexao.php";
-
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,15 +17,13 @@ require_once "models/conexao.php";
 	<div class="titulo">
 		<h1>Login Administrador</h1>
 	</div>
-	<form action="" class="form">
-		<input type="text" name="nome" id="" placeholder="Insira seu usuário">
-		<input type="password" name="senha" id="" placeholder="Insira sua senha">
-		<button type="submit">Entrar</button>
-	</form>
+	<form action="autenticar_adm.php" method="POST" class="form">
+		<input type="text" name="nome" id="nome_usuario" placeholder="Insira seu usuário">
+		<input type="password" name="senha" id="senha_usuario" placeholder="Insira sua senha">
+		<button type="submit">Acessar</button>	</form>
 	<nav class="navegacao">
 		<ul>
 			<li><a href="home.php">Voltar para Home</a></li>
-			<li><a href="adm.php">Ir para ADM</a></li>
 		</ul>
 	</nav>
 </body>
