@@ -24,4 +24,4 @@ INSERT INTO salas (id_sala, nome_sala, descricao_sala, localizacao_sala) VALUES
 (23, 'LAB_QUIMICA_I', '', NULL),
 (24, 'LAB_QUIMICA_II', '', NULL),
 (25, 'LAB_LOGISTICA', '', NULL);
-// Um Insert Das salas do Senai
+-- // Um Insert Das salas do Senai

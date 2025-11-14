@@ -20,7 +20,7 @@ if (!isset($_SESSION['id_usuario'])) {
 </head>
 <body>
 	<header>
-		<img src="senai.png" alt="Logo SENAI" class="logo">
+		<img src="imagens/senai.png" alt="Logo SENAI" class="logo">
 	</header>
 	<div class="titulo">
 		<h1>Menu do Administrador</h1>
@@ -149,3 +149,6 @@ if ($result->num_rows > 0) {
 	</nav>
 </body>
 </html>
+
+
+    

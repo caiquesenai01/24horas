@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $nome = $_POST['nome'];
     $cargo_solicitante = $_POST['cargo_solicitante'];
-    $id_sala = $_POST['nome_sala']; // CORRIGIDO
+    $id_sala = $_POST['nome_sala']; 
     $descricao = $_POST['descricao'];
     $categoria = $_POST['categoria'];
     $prioridade = $_POST['prioridade_tarefa'];
@@ -91,8 +91,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	
 </head>
 <body>
+	
+	
+<button class="botao-modo" onclick="alternarModo()">
+  <span class="icone-modo">◐</span>
+  <span class="texto-modo">Modo Escuro</span>
+</button>
+
+<script>
+function alternarModo() {
+  document.body.classList.toggle('modo-noturno');
+  const icone = document.querySelector('.icone-modo');
+  const texto = document.querySelector('.texto-modo');
+  
+  if (document.body.classList.contains('modo-noturno')) {
+    icone.textContent = '◑';
+    texto.textContent = 'Modo Claro';
+    localStorage.setItem('modo', 'noturno');
+  } else {
+    icone.textContent = '◐';
+    texto.textContent = 'Modo Escuro';
+    localStorage.setItem('modo', 'claro');
+  }
+}
+
+// Verificar preferência salva
+document.addEventListener('DOMContentLoaded', function() {
+  const modoSalvo = localStorage.getItem('modo');
+  const icone = document.querySelector('.icone-modo');
+  const texto = document.querySelector('.texto-modo');
+  
+  if (modoSalvo === 'noturno') {
+    document.body.classList.add('modo-noturno');
+    icone.textContent = '◑';
+    texto.textContent = 'Modo Claro';
+  }
+});
+</script>
+
 	<header>
-		<img src="senai.png" alt="Logo SENAI" class="logo">
+		<img src="imagens/senai.png" alt="Logo SENAI" class="logo">
 	</header>
 	<div class="titulo">
 		<h1>Menu do Usuário</h1>
@@ -152,14 +190,93 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				</div>
 			</form>
 		</div>
+			</div>
 		<div class="acompanhar">
-			<h2>Acompanhamento de solicitações</h2>
-		</div>
+    <h2>Acompanhamento de solicitações</h2>
+    
+    <!-- Formulário de Busca -->
+    <div class="busca-solicitacoes">
+        <form action="" method="GET" class="form-busca">
+            <div class="campos-busca">
+                <div class="campo-busca">
+                    <label for="buscaNome">Buscar por Nome</label>
+                    <input type="text" name="buscaNome" id="buscaNome" placeholder="Digite o nome do solicitante">
+                </div>
+                <div class="campo-busca">
+                    <label for="buscaData">Buscar por Data</label>
+                    <input type="date" name="buscaData" id="buscaData">
+                </div>
+                <div class="campo-busca">
+                    <label for="buscaHorario">Buscar por Horário</label>
+                    <select name="buscaHorario" id="buscaHorario">
+                        <option value="">Todos os horários</option>
+                        <option value="manha">Manhã (06:00 - 12:00)</option>
+                        <option value="tarde">Tarde (12:00 - 18:00)</option>
+                        <option value="noite">Noite (18:00 - 23:00)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="acoes-busca">
+                <button type="submit" class="btn-buscar">Buscar</button>
+                <button type="reset" class="btn-limpar">Limpar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Resultados da Busca -->
+    <div class="resultados-busca">
+        <div class="cabecalho-resultados">
+            <h3>Resultados da Busca</h3>
+            <div class="total-solicitacoes">
+                <span id="contadorResultados">0</span> solicitações encontradas
+            </div>
+        </div>
+        
+        <div class="lista-solicitacoes">
+            <!-- Exemplo de solicitação - substitua por dados reais do PHP -->
+            <div class="solicitacao-item">
+                <div class="solicitacao-header">
+                    <div class="solicitante-info">
+                        <h4>João Silva</h4>
+                        <span class="matricula">MAT: 2023001</span>
+                    </div>
+                    <div class="solicitacao-meta">
+                        <span class="data">15/03/2024</span>
+                        <span class="horario">14:30</span>
+                    </div>
+                </div>
+                <div class="solicitacao-detalhes">
+                    <p class="descricao">Problema com o projetor no laboratório 2 - não está conectando com o computador.</p>
+                    <div class="solicitacao-tags">
+                        <span class="tag-local">Laboratório 2</span>
+                        <span class="tag-categoria">Suporte Técnico</span>
+                        <span class="tag-prioridade alta">Alta</span>
+                        <span class="tag-status pendente">Pendente</span>
+                    </div>
+                </div>
+                <div class="solicitacao-acoes">
+                    <button class="btn-detalhes">Ver Detalhes</button>
+                    <button class="btn-editar">Editar</button>
+                </div>
+            </div>
+
+            <!-- Mais solicitações virão aqui via PHP -->
+        </div>
+
+        <!-- Placeholder quando não há resultados -->
+        <div class="sem-resultados">
+            <p>Nenhuma solicitação encontrada. Tente alterar os filtros de busca.</p>
+        </div>
+    </div>
+</div>
 	</div>
 	<nav class="navegacao">
 		<ul>
 			<li><a href="home.php">Voltar para Home</a></li>
 		</ul>
 	</nav>
+</body>
+</html>
+
 </body>
 </html>
