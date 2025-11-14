@@ -1,16 +1,59 @@
-EXTRAS:
-Email automatico apos nova solicitacao do usuario(para o setor e solicitante)
-imagem da sollicitação(ja criada a pasta caso for usar)
-dashboard com graficos ou contadores mostrando: total de solicitacao, dentro do total sera mostrado distribuicao por prioriadade e categorias mais demandadas
-exportar relatorios em PDF ou CSV(excel)
-modo noturno
+-- Criar o banco de dados
+CREATE DATABASE Suporte_Senai;
+USE Suporte_Senai;
+
+-- Tabela de setores (CRIADA PRIMEIRO)
+CREATE TABLE setores(
+    id_setor INT PRIMARY KEY AUTO_INCREMENT,
+    nome_setor VARCHAR(100) NOT NULL,
+    descricao_setor TEXT,
+    responsavel_setor VARCHAR(100)
+);
+
+-- Tabela de usuários
+CREATE TABLE usuario (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome_usuario VARCHAR(100) NOT NULL,
+    email_usuario VARCHAR(150) UNIQUE NOT NULL,
+    senha_usuario VARCHAR(255) NOT NULL,
+    cargo_usuario ENUM('administrador', 'professor') NOT NULL,
+
+    id_setor INT, -- ADICIONADO
+    data_criacao_usuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_setor) REFERENCES setores(id_setor)
+);
 
 
-Fazer:
-apos o usuario criar a solicitacao, deve ser enviado a data e horario que foi criado para o BD automaticamente
+CREATE TABLE salas (
+    id_sala INT PRIMARY KEY AUTO_INCREMENT,
+    nome_sala VARCHAR(100) NOT NULL,
+    descricao_sala TEXT,
+    localizacao_sala VARCHAR(100)
+);
 
+-- Tabela de tarefas
+CREATE TABLE tarefa (
+    id_tarefa INT PRIMARY KEY AUTO_INCREMENT,
 
+    id_professor INT NOT NULL,
+    id_sala INT NOT NULL,
+    id_setor INT, -- ADICIONADO (se quiser vincular setor à tarefa)
 
-oq precisa ser feito apos implantação do BD:
-fazer devido login na login.php comparando informações com as presentes no BD
-listar todos as solicitações no adm.php podendo alteralas(apenas o status) e no usuario.php porem ele vai ver o status da sua solicitacao, data de abertuda, data da ultima att, resposta do setor(se houver)
+    nome_professor_tarefa VARCHAR(100) NOT NULL,
+    cargo_solicitante ENUM('professor', 'funcionario', 'tecnico', 'outros') NOT NULL,
+    sala_tarefa VARCHAR(150) NOT NULL,
+    descricao_tarefa TEXT NOT NULL,
+    categoria_tarefa ENUM('TI', 'Manutenção', 'Estrutural', 'outros') NOT NULL,
+    status_tarefa ENUM('aberta', 'em andamento', 'concluida', 'cancelada') NOT NULL DEFAULT 'aberta',
+    prioridade_tarefa ENUM('alta', 'media', 'baixa') NOT NULL,
+    foto_tarefa VARCHAR(255),
+
+    data_abertura_tarefa TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_ultima_atualizacao_tarefa TIMESTAMP NULL,
+    data_conclusao_tarefa TIMESTAMP NULL,
+
+    FOREIGN KEY (id_professor) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_sala) REFERENCES salas(id_sala),
+    FOREIGN KEY (id_setor) REFERENCES setores(id_setor)
+);

@@ -1,27 +1,35 @@
 <?php
 require_once 'models/conexao.php';
-print_r($_SESSION);
-// PROCESSAR FORMULÁRIO
 
-// debug opcional
-// print_r($_SESSION);
 session_start();
+print_r($_SESSION);
+
+// PROCESSAR FORMULÁRIO
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $id_professor = $_SESSION['id_usuario']; // ajuste se necessário
+    $id_professor = $_SESSION['id_usuario']; 
 
     $nome = $_POST['nome'];
-    $cargo = $_POST['cargo'];
-    $id_sala = $_POST['nome_sala'];
+    $cargo_solicitante = $_POST['cargo_solicitante'];
+    $id_sala = $_POST['nome_sala']; // CORRIGIDO
     $descricao = $_POST['descricao'];
     $categoria = $_POST['categoria'];
     $prioridade = $_POST['prioridade_tarefa'];
+    $periodo = $_POST['periodo'];
 
-    // status e datas
+    // Buscar nome da sala para salvar em sala_tarefa
+    $sqlSala = "SELECT nome_sala FROM salas WHERE id_sala = ?";
+    $stmtSala = $conn->prepare($sqlSala);
+    $stmtSala->bind_param("i", $id_sala);
+    $stmtSala->execute();
+    $stmtSala->bind_result($nome_sala);
+    $stmtSala->fetch();
+    $stmtSala->close();
+
     $status = "Aberta";
     $data_abertura = date("Y-m-d H:i:s");
 
-    // ----- UPLOAD DA IMAGEM -----
+    // UPLOAD DA IMAGEM
     $foto = null;
 
     if (!empty($_FILES['imagem']['name'])) {
@@ -35,31 +43,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $foto = $target_dir . basename($_FILES["imagem"]["name"]);
 
         if (!move_uploaded_file($_FILES["imagem"]["tmp_name"], $foto)) {
-            $foto = null; // evita erro
+            $foto = null;
         }
     }
 
-    // ----- INSERT NO BANCO -----
+    // INSERT CORRIGIDO
     $sql = "INSERT INTO tarefa 
     (id_professor, id_sala, nome_professor_tarefa, cargo_solicitante, sala_tarefa,
      descricao_tarefa, categoria_tarefa, status_tarefa, prioridade_tarefa,
-     foto_tarefa, data_abertura_tarefa)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     foto_tarefa, data_abertura_tarefa, periodo)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
+
     $stmt->bind_param(
-        "iisssssssss",
+        "iissssssssss",
         $id_professor,
         $id_sala,
         $nome,
-        $cargo,
-        $id_sala, // sala_tarefa recebe o ID também
+        $cargo_solicitante,
+        $nome_sala,       // sala_tarefa SALVANDO NOME CORRETAMENTE
         $descricao,
         $categoria,
         $status,
         $prioridade,
         $foto,
-        $data_abertura
+        $data_abertura,
+        $periodo
     );
 
     if ($stmt->execute()) {
@@ -69,6 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -94,8 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				<input type="text" name="nome" id="nome" placeholder="Insira seu nome">
 				<label for="matricula">matricula</label>
 				<input type="text" name="matricula" id="matricula" placeholder="Insira sua matrícula">
-				<label for="cargo">cargo</label>
-				<select name="cargo" id="cargo">
+				<label for="cargo_solicitante">cargo</label>
+				<select name="cargo_solicitante" id="cargo_solicitante">
 					<option value="Aluno">Aluno</option>
 					<option value="Professor">Professor</option>
 					<option value="Funcionário">Funcionário</option>
@@ -103,9 +114,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				</select>
 				<label for="nome_sala">local</label>
 				<select name="nome_sala" id="nome_sala">
-					<option value="Laboratorio">Laboratório</option>
-					<option value="sala">sala</option>
-					<option value="setor">setor</option>
 					<?php
 					$sql = "SELECT id_sala, nome_sala FROM salas order by nome_sala";
 					$result = $conn->query($sql);
@@ -129,6 +137,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 					<option value="Baixa">Baixa</option>
 					<option value="Média">Média</option>
 					<option value="Alta">Alta</option>
+				</select>
+				<label for=periodo">periodo</label>
+				<select name="periodo" id="periodo">
+					<option value="Manha">Manhã</option>
+					<option value="Tarde">Tarde</option>
+					<option value="Noite">Noite</option>	
 				</select>
 				<label for="imagem">Upload de imagem</label>
 				<input type="file" name="imagem" id="imagem">
